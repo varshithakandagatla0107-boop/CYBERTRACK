@@ -1,0 +1,69 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CYBERTRACK: Restart Server",
+      "type": "shell",
+      "command": ".\\restart_cybertrack.bat",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "shared" }
+    },
+    {
+      "label": "CYBERTRACK: Stop Server",
+      "type": "shell",
+      "command": ".\\stop_cybertrack.bat",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "CYBERTRACK: Open App",
+      "type": "shell",
+      "command": "start http://localhost:8000",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
+      "label": "CYBERTRACK: Build Frontend",
+      "type": "shell",
+      "command": "npm run build",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "CYBERTRACK: Run Backend Tests",
+      "type": "shell",
+      "command": "python -m pytest tests/ -q",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "problemMatcher": []
+    },
+    {
+      "label": "CYBERTRACK: Dev Backend (hot reload)",
+      "type": "shell",
+      "command": "python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload",
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "CYBERTRACK: Dev Frontend (Vite)",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated" }
+    },
+    {
+      "label": "CYBERTRACK: Dev (both servers)",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "CYBERTRACK: Stop Server",
+        "CYBERTRACK: Dev Backend (hot reload)",
+        "CYBERTRACK: Dev Frontend (Vite)"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

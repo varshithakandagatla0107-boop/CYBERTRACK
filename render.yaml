@@ -1,0 +1,18 @@
+# Render Blueprint - deploy CYBERTRACK to a permanent public URL.
+# Render free web services sleep after inactivity; first request after idle
+# takes ~30-60s. Ping the URL before the jury demo to wake it.
+services:
+  - type: web
+    name: cybertrack
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: CYBERTRACK_JWT_SECRET
+        generateValue: true
+      - key: CYBERTRACK_MODE
+        value: production
+      - key: CYBERTRACK_DB
+        value: /app/data/cybertrack.db
+      - key: PYTHONUNBUFFERED
+        value: "1"
